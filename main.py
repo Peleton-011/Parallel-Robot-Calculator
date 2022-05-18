@@ -51,11 +51,11 @@ def initialCalculations(angles = []):
     
     #Purely calculational variables
 
-    A = 0
-    W = 0
-    U = 0
-    T = 0
-    I = 0
+    A = 2 * (-2 * Xl - P + D + 2 * Xr)
+    W = 4 * (Yr - Yl)
+    U = 2 * (-2 * Xr + 2 * Xl + P - D)
+    T = -3 * Yl - Yr
+    I = D * D + P * P + 3 * (Xr * Xr + Yr * Yr) + Xl * Xl + Yl * Yl + 2 * (-2 * Xr * P - Xl * D - P * D + P * Xl - 2 * Xr * Xl + 2 * Xr * D)
     E = 0
     V = 0
     N = 0
