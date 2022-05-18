@@ -4,12 +4,12 @@ import math
 
 #Physical parameters
 
-P = 0 #Length of the effector platform
+P = 0.1 #Length of the effector platform
 Cx = 0 #X coord of the left shoulder
 Cy = 0 #Y coord of the left shoulder
-lb = 0 #Length of the upper half of the arm
-la = 0 #Length of the lower half of the arm
-D = 0 #Distance between shoulders
+lb = 1 #Length of the upper half of the arm
+la = 1 #Length of the lower half of the arm
+D = 1.5 #Distance between shoulders
 
 
 #Gets the unit in which the input will be given
@@ -30,6 +30,10 @@ def getInput(mode = sys.maxsize):
     auxText = ["(degrees)", "(radians)"]
     leftAngle = float(input("Insert the angle of the left motor " + auxText[mode]))
     rightAngle = float(input("Insert the angle of the right motor " + auxText[mode]))
+    
+    if not mode:
+        leftAngle = math.radians(leftAngle)
+        rightAngle = math.radians(rightAngle)
     return [leftAngle, rightAngle]
 
 def initialCalculations(angles = []):
@@ -38,16 +42,16 @@ def initialCalculations(angles = []):
         angles = getInput()
     
     #X coord of the end of the upper half of the left arm
-    Xl = 0 
+    Xl = lb * math.cos(angles[0])
     
     #X coord of the end of the upper half of the right arm
-    Xr = 0 
+    Xr = lb * math.cos(angles[1]) 
     
     #Y coord of the end of the upper half of the left arm
-    Yl = 0 
+    Yl = lb * math.sin(angles[0])
     
     #Y coord of the end of the upper half of the right arm
-    Yr = 0
+    Yr = lb * math.sin(angles[1])
     
     #Auxiliary variables
     
@@ -106,3 +110,5 @@ def mainCalculations(coordsAndParams = []):
     b2 = auxNumeratorB2/auxDenominator
 
     return [a1, b1, a2, b2]
+
+print(mainCalculations())
