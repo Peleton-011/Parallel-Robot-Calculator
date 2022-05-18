@@ -49,16 +49,28 @@ def initialCalculations(angles = []):
     #Y coord of the end of the upper half of the right arm
     Yr = 0
     
+    #Auxiliary variables
+    
+    P2D2 = P * P + D * D
+    CxD = Cx + D
+    Xl2 = Xl * Xl
+    Xr2 = Xr * Xr
+    Yl2 = Yl * Yl
+    Yr2 = Yr * Yr
+    XlD = Xl * D
+    XlP = Xl * P
+    AuxE = 2 * (2 * XlP - 2 * XlD - 2 * Xl * Xr - P * D - P * Xr - Cx * Xl - Cy * Yl - CxD * Xr - Cy * Yr)
+    
     #Purely calculational variables
 
     A = 2 * (-2 * Xl - P + D + 2 * Xr)
     W = 4 * (Yr - Yl)
     U = 2 * (-2 * Xr + 2 * Xl + P - D)
     T = -3 * Yl - Yr
-    I = D * D + P * P + 3 * (Xr * Xr + Yr * Yr) + Xl * Xl + Yl * Yl + 2 * (-2 * Xr * P - Xl * D - P * D + P * Xl - 2 * Xr * Xl + 2 * Xr * D)
-    E = 0
-    V = 0
-    N = 0
+    I = P2D2 + 3 * (Xr2 + Yr2) + Xl2 + Yl2 + 2 * (-2 * Xr * P - XlD - P * D + P * Xl - 2 * Xr * Xl + 2 * Xr * D)
+    E = 3 * (Yl * Yr + Xl2 - Yl2) + AuxE - Yr2  + P2D2 + Xr2 + Cx * Cx + (CxD * CxD)
+    V = Yr - Yl
+    N = D + Xr - P - Xl
     
     return [A, W, U, T, I, E, V, N]
 
