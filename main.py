@@ -4,7 +4,7 @@ import math
 
 #Physical parameters
 
-P = 0.1 #Length of the effector platform
+P = 0.2 #Length of the effector platform
 Cx = 0 #X coord of the left shoulder
 Cy = 0 #Y coord of the left shoulder
 lb = 1 #Length of the upper half of the arm
@@ -72,7 +72,7 @@ def initialCalculations(angles = []):
     #IMPORTANT: This variable is in no way related to coordinates
     X = Aux3 * Aux3 + Aux4 * Aux4 - Xr * Xr - Yr * Yr
     
-    return [A, B, N, U, I, O, E, X]
+    return [A, B, N, U, I, O, E, X, Xl, Yl, Xr, Yr]
 
 #Main and final calculations
 def mainCalculations(coordsAndParams = []):
@@ -90,22 +90,34 @@ def mainCalculations(coordsAndParams = []):
     E = coordsAndParams[6]
     X = coordsAndParams[7]
     
+    Xl = coordsAndParams[8]
+    Yl = coordsAndParams[9]
+    Xr = coordsAndParams[10]
+    Yr = coordsAndParams[11]
+    
     #Auxiliary variable calculations
     
-    auxNOUE
+    auxNOUE = X + N * O + U * E
     
     denominator = A * U - B * N
     numeratorA1 = I * U - B * auxNOUE 
     numeratorB1 = A * auxNOUE - I * N
-    numeratorA2 = 
-    numeratorB2 = 
+    numeratorA2 = I * U - U * O * A - B * (X + U * E)
+    numeratorB2 = A * (N * O + X) + B * N * E - I * N
     
     #Actual calculations according to some predefined equations
     a1 = numeratorA1/denominator
     b1 = numeratorB1/denominator
     a2 = numeratorA2/denominator
     b2 = numeratorB2/denominator
-
-    return [a1, b1, a2, b2]
+    
+    #Final position calculations
+    finalX1 = a1 + Xl
+    finalY1 = b1 + Yl
+    finalX2 = a2 + Xr
+    finalY2 = b2 + Yr
+    
+    
+    return [finalX1, finalY1, finalX2, finalY2]
 
 print(mainCalculations())
