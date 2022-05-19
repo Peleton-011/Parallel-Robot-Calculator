@@ -55,28 +55,24 @@ def initialCalculations(angles = []):
     
     #Auxiliary variables
     
-    P2D2 = P * P + D * D
-    CxD = Cx + D
-    Xl2 = Xl * Xl
-    Xr2 = Xr * Xr
-    Yl2 = Yl * Yl
-    Yr2 = Yr * Yr
-    XlD = Xl * D
-    XlP = Xl * P
-    AuxE = 2 * (2 * XlP - 2 * XlD - 2 * Xl * Xr - P * D - P * Xr - Cx * Xl - Cy * Yl - CxD * Xr - Cy * Yr)
+    Aux1 = Xl + P - D - 2 * Xr 
+    Aux2 = Yl - 2 * Yr * Yr
+    Aux3 = D + Xr - P - 2 * Xl
+    Aux4 = Yr - 2 * Yl
     
     #Purely calculational variables
 
-    A = 2 * (-2 * Xl - P + D + 2 * Xr)
-    W = 4 * (Yr - Yl)
-    U = 2 * (-2 * Xr + 2 * Xl + P - D)
-    T = -3 * Yl - Yr
-    I = P2D2 + 3 * (Xr2 + Yr2) + Xl2 + Yl2 + 2 * (-2 * Xr * P - XlD - P * D + P * Xl - 2 * Xr * Xl + 2 * Xr * D)
-    E = 3 * (Yl * Yr + Xl2 - Yl2) + AuxE - Yr2  + P2D2 + Xr2 + Cx * Cx + (CxD * CxD)
-    V = Yr - Yl
-    N = D + Xr - P - Xl
+    A = - 2 * (Xl + Aux1)
+    B = - 2 * (Yl + Aux2)
+    N = - 2 * (Xr + Aux3)
+    U = - 2 * (Yr + Aux4)
+    I = Aux1 * Aux1 + Aux2 * Aux2 - Xl * Xl - Yl * Yl
+    O = D + Xr - P - Xl
+    E = Yr - Yl
+    #IMPORTANT: This variable is in no way related to coordinates
+    X = Aux3 * Aux3 + Aux4 * Aux4 - Xr * Xr - Yr * Yr
     
-    return [A, W, U, T, I, E, V, N]
+    return [A, B, N, U, I, O, E, X]
 
 #Main and final calculations
 def mainCalculations(coordsAndParams = []):
@@ -86,28 +82,29 @@ def mainCalculations(coordsAndParams = []):
     
     #Unpacking variables
     A = coordsAndParams[0]
-    W = coordsAndParams[1]
-    U = coordsAndParams[2]
-    T = coordsAndParams[3]
+    B = coordsAndParams[1]
+    N = coordsAndParams[2]
+    U = coordsAndParams[3]
     I = coordsAndParams[4]
-    E = coordsAndParams[5]
-    V = coordsAndParams[6]
-    N = coordsAndParams[7]
+    O = coordsAndParams[5]
+    E = coordsAndParams[6]
+    X = coordsAndParams[7]
     
     #Auxiliary variable calculations
-    auxA = (W *  E) + (W * T * V) - (T * I)
-    auxB = (I * U) - (A * E) - (A * U * N)
-    auxDenominator = (W * U) - (A * T)
-    auxNumeratorA1 = (W * U * N) + auxA
-    auxNumeratorB1 = auxB - (A * T * V)
-    auxNumeratorA2 = (A * T * N) + auxA
-    auxNumeratorB2 = auxB - (W * U * V)
+    
+    auxNOUE
+    
+    denominator = A * U - B * N
+    numeratorA1 = I * U - B * auxNOUE 
+    numeratorB1 = A * auxNOUE - I * N
+    numeratorA2 = 
+    numeratorB2 = 
     
     #Actual calculations according to some predefined equations
-    a1 = auxNumeratorA1/auxDenominator
-    b1 = auxNumeratorB1/auxDenominator
-    a2 = auxNumeratorA2/auxDenominator
-    b2 = auxNumeratorB2/auxDenominator
+    a1 = numeratorA1/denominator
+    b1 = numeratorB1/denominator
+    a2 = numeratorA2/denominator
+    b2 = numeratorB2/denominator
 
     return [a1, b1, a2, b2]
 
